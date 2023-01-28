@@ -15,6 +15,46 @@ class ResendOTPController extends Controller
         $this->userService = $userService;
     }
 
+/**
+ * @OA\Get(
+ *     path="/api/auth/resent-otp/{id}",
+ *     tags={"Auth"},
+ *     summary="Re-send Otp",
+ *     description="Returns registered user data",
+ * @OA\Parameter(
+ *          name="id",
+ *          description="User id",
+ *          required=true,
+ *          in="path",
+ *          @OA\Schema(
+ *              type="string"
+ *          )
+ *      ),
+ *     @OA\Response(
+ *          response=200,
+ *          description="Successful operation",
+ *          @OA\MediaType(
+*              mediaType="application/json",
+*           ),
+*       ),
+*      @OA\Response(
+*          response=400,
+*          description="Bad Request"
+*      ),
+*      @OA\Response(
+*          response=401,
+*          description="Unauthenticated",
+*      ),
+*      @OA\Response(
+*          response=403,
+*          description="Forbidden"
+*      ),
+*      @OA\Response(
+*          response=422,
+*          description="Unprocessable Content"
+*      )
+* )
+*/
     public function send_otp($user_id){
 
         $user = $this->userService->send_otp($user_id);
@@ -24,6 +64,6 @@ class ResendOTPController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Otp sent successfully',
-        ], 201);
+        ], 200);
     }
 }

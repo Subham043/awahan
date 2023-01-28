@@ -14,6 +14,40 @@ class ProfileController extends Controller
         $this->userService = $userService;
     }
 
+             /**
+ * @OA\Get(
+ *     path="/api/auth/profile",
+ *     tags={"Auth"},
+ *     summary="Profile Data of Authenticated User",
+ *     description="Returns registered user data",
+ *      security={
+     *           {"bearerAuth": {}}
+     *       },
+ *     @OA\Response(
+ *          response=200,
+ *          description="Successful operation",
+ *          @OA\MediaType(
+*              mediaType="application/json",
+*           ),
+*       ),
+*      @OA\Response(
+*          response=400,
+*          description="Bad Request"
+*      ),
+*      @OA\Response(
+*          response=401,
+*          description="Unauthenticated",
+*      ),
+*      @OA\Response(
+*          response=403,
+*          description="Forbidden"
+*      ),
+*      @OA\Response(
+*          response=422,
+*          description="Unprocessable Content"
+*      )
+* )
+*/ 
     public function profile()
     {
         return response()->json([

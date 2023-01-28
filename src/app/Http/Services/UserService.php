@@ -28,18 +28,7 @@ class UserService implements UserInterface
 
     public function login($credentials)
     {
-        $token= Auth::attempt($credentials);
-        if (!$token) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Invalid Credentials',
-            ], 401);
-        }
-        $this->hasAccess($this->auth_user_details());
-        return [
-            'token' => $token,
-            'user' => $this->getById($this->auth_user_details()->id),
-        ];
+        return Auth::attempt($credentials);
     }
     
     public function getById($id)

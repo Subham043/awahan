@@ -1,0 +1,640 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Awahan API Documentation",
+        "description": "Swagger OpenApi description",
+        "contact": {
+            "email": "subham.5ine@gmail.com"
+        },
+        "license": {
+            "name": "Nginx 1.22.1",
+            "url": "http://nginx.org/LICENSE"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Awahan API Server"
+        }
+    ],
+    "paths": {
+        "/api/auth/admin-login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Authenticate Admin",
+                "description": "Returns authenticated admin data",
+                "operationId": "4be0cbf1b67efbee14721940110ed3e1",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "User Email",
+                                        "type": "string",
+                                        "example": "subham.5ine@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "User Password",
+                                        "type": "string",
+                                        "example": "subham"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/auth/forgot-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Forgot Password of User",
+                "description": "Returns registered user data",
+                "operationId": "8a1962a52537c1d2b5769326e79d3228",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "User Email",
+                                        "type": "string",
+                                        "example": "subham.5ine@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Authenticate User",
+                "description": "Returns authenticated user data",
+                "operationId": "f779238bce5c5b984c773808f46fd14c",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "User Email",
+                                        "type": "string",
+                                        "example": "subham.5ine@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "User Password",
+                                        "type": "string",
+                                        "example": "subham"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout Authenticated User",
+                "description": "Returns registered user data",
+                "operationId": "a53594eeb3e9697671f1c9923cf5e39c",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/password-update": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Update Password of Authenticated User",
+                "description": "Returns registered user data",
+                "operationId": "d6a65b785461484123f9a92182a98137",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "old_password": {
+                                        "description": "User Old Password",
+                                        "type": "string",
+                                        "example": "subham"
+                                    },
+                                    "password": {
+                                        "description": "User New Password",
+                                        "type": "string",
+                                        "example": "subham"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/profile": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Profile Data of Authenticated User",
+                "description": "Returns registered user data",
+                "operationId": "f207dc1ea21442c0d3b584c92bae0e8c",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/profile-update": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Update Profile of Authenticated User",
+                "description": "Returns registered user data",
+                "operationId": "aa5c9f497a3630931133af2e06dd7a70",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "first_name": {
+                                        "description": "User First Name",
+                                        "type": "string",
+                                        "example": "subham"
+                                    },
+                                    "last_name": {
+                                        "description": "User Last Name",
+                                        "type": "string",
+                                        "example": "saha"
+                                    },
+                                    "phone": {
+                                        "description": "User Phone",
+                                        "type": "string",
+                                        "example": "7892156160"
+                                    },
+                                    "email": {
+                                        "description": "User Email",
+                                        "type": "string",
+                                        "example": "subham.5ine@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/refresh": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh Token of Authenticated User",
+                "description": "Returns registered user data",
+                "operationId": "62c926773eae265ad5f5e91d498e995b",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register User",
+                "description": "Returns registered user data",
+                "operationId": "f0e180cf2ce34bf385b5cf9d3169900d",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "first_name": {
+                                        "description": "User First Name",
+                                        "type": "string",
+                                        "example": "subham"
+                                    },
+                                    "last_name": {
+                                        "description": "User Last Name",
+                                        "type": "string",
+                                        "example": "saha"
+                                    },
+                                    "phone": {
+                                        "description": "User Phone",
+                                        "type": "string",
+                                        "example": "7892156160"
+                                    },
+                                    "email": {
+                                        "description": "User Email",
+                                        "type": "string",
+                                        "example": "subham.5ine@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "User Password",
+                                        "type": "string",
+                                        "example": "subham"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/auth/resent-otp/{id}": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Re-send Otp",
+                "description": "Returns registered user data",
+                "operationId": "826051a29755f2d42ef56f1acddf0b99",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/auth/reset-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Update Password of Unauthenticated User",
+                "description": "Returns registered user data",
+                "operationId": "5df66b266ad585ca403c80f41005cc7a",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "otp": {
+                                        "description": "User OTP",
+                                        "type": "string",
+                                        "example": "1234"
+                                    },
+                                    "old_password": {
+                                        "description": "User Old Password",
+                                        "type": "string",
+                                        "example": "subham"
+                                    },
+                                    "password": {
+                                        "description": "User New Password",
+                                        "type": "string",
+                                        "example": "subham"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/auth/verify-user/{id}": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Verify User",
+                "description": "Returns registered user data",
+                "operationId": "c00cca604facbf62771665f9506c970c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "otp": {
+                                        "description": "User OTP",
+                                        "type": "string",
+                                        "example": "1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "API Endpoints of Authentication"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "scheme": "bearer",
+                "in": "header",
+                "bearerAuth": "bearerAuth",
+                "bearerFormat": "JWT"
+            },
+            "security": {
+                "bearerAuth": []
+            }
+        }
+    }
+}
