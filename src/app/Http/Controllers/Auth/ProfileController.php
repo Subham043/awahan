@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\UserService;
+use App\Http\Services\Interfaces\UserInterface;
 
 class ProfileController extends Controller
 {
     private $userService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserInterface $userService)
     {
         $this->userService = $userService;
     }

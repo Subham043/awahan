@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Models\User;
+use App\Http\Services\Interfaces\UserInterface;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserCollection;
 use App\Exceptions\UserAccessException;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Carbon\Carbon;
 
-class UserService
+class UserService implements UserInterface
 {
     private $userModel;
 
@@ -89,19 +90,23 @@ class UserService
         Auth::logout();
     }
 
-    public function auth_user_details(){
+    public function auth_user_details()
+    {
         return Auth::user();
     }
     
-    public function auth_refresh(){
+    public function auth_refresh()
+    {
         return Auth::refresh();
     }
 
-    public function decryptId($id){
+    public function decryptId($id)
+    {
         return Crypt::decryptString($id);
     }
 
-    public function send_otp($id){
+    public function send_otp($id)
+    {
         $decryptedId = $this->decryptId($id);
         $user = $this->getById($decryptedId);
         $user->otp = rand(1000,9999);
@@ -110,7 +115,8 @@ class UserService
         return $user;
     }
 
-    public function verify_user($id){
+    public function verify_user($id)
+    {
         $user = $this->getById($id);
         $user->otp = rand(1000,9999);
         $user->status = 1;
@@ -119,7 +125,8 @@ class UserService
         return $user;
     }
 
-    public function profile_update($request){
+    public function profile_update($request)
+    {
         $user = $this->getById($this->auth_user_details()->id);
 
         $user->first_name = $request['first_name'];

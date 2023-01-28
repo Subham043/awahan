@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendVerificationEmailJob;
-use App\Http\Services\UserService;
+use App\Http\Services\Interfaces\UserInterface;
 use App\Http\Requests\RegisterPostRequest;
 
 class RegisterController extends Controller
 {
     private $userService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserInterface $userService)
     {
         $this->userService = $userService;
     }
