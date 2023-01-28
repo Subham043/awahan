@@ -87,8 +87,8 @@ class AdminLoginController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'user' => $this->userService->geUserResource($data['user']),
-            'access_token' => $data['token'],
+            'user' => $this->userService->geUserResource($user),
+            'access_token' => $token,
         ], 200);
 
     }
