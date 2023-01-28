@@ -3,13 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use App\Http\Resources\UserCollection;
 use App\Jobs\SendForgotPasswordEmailJob;
-use App\Exceptions\UserAccessException;
 use App\Http\Services\UserService;
 use App\Http\Requests\ForgotPasswordPostRequest;
 

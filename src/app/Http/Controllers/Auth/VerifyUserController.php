@@ -3,14 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use App\Http\Resources\UserCollection;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Contracts\Encryption\DecryptException;
-use Carbon\Carbon;
 use App\Http\Services\UserService;
 use App\Http\Requests\OtpPostRequest;
 
@@ -36,7 +29,7 @@ class VerifyUserController extends Controller
         $user = $this->userService->verify_user($user->id);
 
         $token = Auth::login($user);
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',

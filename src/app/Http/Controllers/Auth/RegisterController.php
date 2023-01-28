@@ -3,11 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use App\Http\Resources\UserCollection;
 use App\Jobs\SendVerificationEmailJob;
 use App\Http\Services\UserService;
 use App\Http\Requests\RegisterPostRequest;
