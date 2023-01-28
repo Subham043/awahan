@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('otp');
             $table->rememberToken();
             $table->timestamps();
+            $table->index(['email', 'phone', 'otp', 'id', 'created_at']);
         });
     }
 
