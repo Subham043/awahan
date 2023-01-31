@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendVerificationEmailJob;
-use App\Http\Services\Interfaces\UserInterface;
+use App\Http\Services\UserService;
 use App\Http\Requests\RegisterPostRequest;
 
 class RegisterController extends Controller
 {
     private $userService;
 
-    public function __construct(UserInterface $userService)
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
@@ -27,7 +27,7 @@ class RegisterController extends Controller
  *             mediaType="application/json",
  *             @OA\Schema(
  *                 type="object",
- * 
+ *
  *                 @OA\Property(
  *                     property="first_name",
  *                     description="User First Name",
@@ -88,7 +88,7 @@ class RegisterController extends Controller
 */
     public function register(RegisterPostRequest $request){
 
-        $this->userService->create($request->validated());
+        $this->userService->create($request);
 
         $user = $this->userService->getByEmail($request->email);
         //dispatch(new SendVerificationEmailJob($user));

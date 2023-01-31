@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\Interfaces\UserInterface;
+use App\Http\Services\AuthService;
 
 class ProfileController extends Controller
 {
-    private $userService;
+    private $authService;
 
-    public function __construct(UserInterface $userService)
+    public function __construct(AuthService $authService)
     {
-        $this->userService = $userService;
+        $this->authService = $authService;
     }
 
              /**
@@ -47,12 +47,12 @@ class ProfileController extends Controller
 *          description="Unprocessable Content"
 *      )
 * )
-*/ 
+*/
     public function profile()
     {
         return response()->json([
             'status' => 'success',
-            'user' => $this->userService->geUserResource($this->userService->auth_user_details()),
+            'user' => $this->authService->geUserResource($this->authService->auth_user_details()),
         ], 200);
     }
 }

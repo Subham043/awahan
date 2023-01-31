@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\Interfaces\UserInterface;
+use App\Http\Services\AuthService;
 use App\Http\Requests\ProfilePostRequest;
 
 class ProfileUpdateController extends Controller
 {
-    private $userService;
+    private $authService;
 
-    public function __construct(UserInterface $userService)
+    public function __construct(AuthService $authService)
     {
-        $this->userService = $userService;
+        $this->authService = $authService;
     }
 
         /**
@@ -29,7 +29,7 @@ class ProfileUpdateController extends Controller
  *             mediaType="application/json",
  *             @OA\Schema(
  *                 type="object",
- * 
+ *
  *                 @OA\Property(
  *                     property="first_name",
  *                     description="User First Name",
@@ -84,14 +84,14 @@ class ProfileUpdateController extends Controller
 */
     public function profile_update(ProfilePostRequest $request)
     {
-        $user = $this->userService->getById($this->userService->auth_user_details()->id);
-        $this->userService->hasAccess($user);
+        $user = $this->authService->getById($this->authService->auth_user_details()->id);
+        $this->authService->hasAccess($user);
 
-        $user = $this->userService->profile_update($request->validated());
+        $user = $this->authService->profile_update($request);
 
         return response()->json([
             'status' => 'success',
-            'user' => $this->userService->geUserResource($user),
+            'user' => $this->authService->geUserResource($user),
         ], 200);
     }
 }

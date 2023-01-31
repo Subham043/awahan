@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\Interfaces\UserInterface;
+use App\Http\Services\AuthService;
 
 class RefreshController extends Controller
 {
-    private $userService;
+    private $authService;
 
-    public function __construct(UserInterface $userService)
+    public function __construct(AuthService $authService)
     {
-        $this->userService = $userService;
+        $this->authService = $authService;
     }
          /**
  * @OA\Get(
@@ -46,13 +46,13 @@ class RefreshController extends Controller
 *          description="Unprocessable Content"
 *      )
 * )
-*/   
+*/
     public function refresh()
     {
         return response()->json([
             'status' => 'success',
-            'user' => $this->userService->geUserResource($this->userService->auth_user_details()),
-            'refresh_token' => $this->userService->auth_refresh(),
+            'user' => $this->authService->geUserResource($this->authService->auth_user_details()),
+            'refresh_token' => $this->authService->auth_refresh(),
         ], 200);
     }
 }

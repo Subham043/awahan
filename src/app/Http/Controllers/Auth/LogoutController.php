@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\Interfaces\UserInterface;
+use App\Http\Services\AuthService;
 
 class LogoutController extends Controller
 {
 
-    private $userService;
+    private $authService;
 
-    public function __construct(UserInterface $userService)
+    public function __construct(AuthService $authService)
     {
-        $this->userService = $userService;
+        $this->authService = $authService;
     }
-    
+
 /**
  * @OA\Get(
  *     path="/api/auth/logout",
@@ -48,10 +48,10 @@ class LogoutController extends Controller
 *          description="Unprocessable Content"
 *      )
 * )
-*/ 
+*/
     public function logout()
     {
-        $this->userService->logout();
+        $this->authService->logout();
         return response()->json([
             'status' => 'success',
             'message' => 'Successfully logged out',

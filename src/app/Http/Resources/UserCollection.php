@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +15,7 @@ class UserCollection extends JsonResource
         ];
         return $status[$this->status];
     }
-    
+
     public function getRole(){
         $role = [
             1 => "Admin",

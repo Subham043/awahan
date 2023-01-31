@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Services\Interfaces\UserInterface;
+use App\Http\Services\AuthService;
 use App\Http\Requests\PasswordPostRequest;
 
 class PasswordUpdateController extends Controller
 {
-    private $userService;
+    private $authService;
 
-    public function __construct(UserInterface $userService)
+    public function __construct(AuthService $authService)
     {
-        $this->userService = $userService;
+        $this->authService = $authService;
     }
 
         /**
@@ -30,7 +30,7 @@ class PasswordUpdateController extends Controller
  *             mediaType="application/json",
  *             @OA\Schema(
  *                 type="object",
- 
+
  *                 @OA\Property(
  *                     property="old_password",
  *                     description="User Old Password",
@@ -73,9 +73,9 @@ class PasswordUpdateController extends Controller
 */
     public function password_update(PasswordPostRequest $request)
     {
-        $user = $this->userService->getById($this->userService->auth_user_details()->id);
-        $this->userService->hasAccess($user);
-        
+        $user = $this->authService->getById($this->authService->auth_user_details()->id);
+        $this->authService->hasAccess($user);
+
         if (!Hash::check($request->old_password, $user->getPassword())) {
             return response()->json([
                 'status' => 'error',
@@ -88,7 +88,7 @@ class PasswordUpdateController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'user' => $this->userService->geUserResource($user),
+            'user' => $this->authService->geUserResource($user),
         ], 200);
     }
 }

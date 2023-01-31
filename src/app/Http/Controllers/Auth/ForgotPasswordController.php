@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendForgotPasswordEmailJob;
-use App\Http\Services\Interfaces\UserInterface;
+use App\Http\Services\AuthService;
 use App\Http\Requests\ForgotPasswordPostRequest;
 
 class ForgotPasswordController extends Controller
 {
-    private $userService;
+    private $authService;
 
-    public function __construct(UserInterface $userService)
+    public function __construct(AuthService $authService)
     {
-        $this->userService = $userService;
+        $this->authService = $authService;
     }
     /**
  * @OA\Post(
@@ -26,7 +26,7 @@ class ForgotPasswordController extends Controller
  *             mediaType="application/json",
  *             @OA\Schema(
  *                 type="object",
- * 
+ *
  *                  @OA\Property(
  *                     property="email",
  *                     description="User Email",
@@ -63,14 +63,14 @@ class ForgotPasswordController extends Controller
 */
     public function forgot_password(ForgotPasswordPostRequest $request){
 
-        $user = $this->userService->forgot_password($request->email);
+        $user = $this->authService->forgot_password($request->email);
 
         //dispatch(new SendForgotPasswordEmailJob($user));
 
         return response()->json([
             'status' => 'success',
             'message' => 'Password reset link has been shared with your email address.',
-            'user' => $this->userService->geUserResource($user),
+            'user' => $this->authService->geUserResource($user),
         ], 200);
     }
 }

@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendOtpEmailJob;
-use App\Http\Services\Interfaces\UserInterface;
+use App\Http\Services\AuthService;
 
 class ResendOTPController extends Controller
 {
-    private $userService;
+    private $authService;
 
-    public function __construct(UserInterface $userService)
+    public function __construct(AuthService $authService)
     {
-        $this->userService = $userService;
+        $this->authService = $authService;
     }
 
 /**
@@ -57,7 +57,7 @@ class ResendOTPController extends Controller
 */
     public function send_otp($user_id){
 
-        $user = $this->userService->send_otp($user_id);
+        $user = $this->authService->send_otp($user_id);
 
         //dispatch(new SendOtpEmailJob($user));
 

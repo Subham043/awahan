@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\Interfaces\UserInterface;
+use App\Http\Services\AuthService;
 use App\Http\Requests\LoginPostRequest;
 
 class LoginController extends Controller
 {
-    private $userService;
+    private $authService;
 
-    public function __construct(UserInterface $userService)
+    public function __construct(AuthService $authService)
     {
-        $this->userService = $userService;
+        $this->authService = $authService;
     }
 /**
  * @OA\Post(
@@ -25,7 +25,7 @@ class LoginController extends Controller
  *             mediaType="application/json",
  *             @OA\Schema(
  *                 type="object",
- * 
+ *
  *                 @OA\Property(
  *                     property="email",
  *                     description="User Email",
@@ -69,24 +69,22 @@ class LoginController extends Controller
     public function login(LoginPostRequest $request)
     {
 
-        $credentials = $request->safe()->only('email', 'password');
+        $token = $this->authService->login($request);
 
-        $token = $this->userService->login($credentials);
-        
         if (!$token) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Invalid Credentials',
             ], 401);
         }
-        
-        $user = $this->userService->getByEmail($request->email);
 
-        $this->userService->hasAccess($user);
+        $user = $this->authService->getByEmail($request->email);
+
+        $this->authService->hasAccess($user);
 
         return response()->json([
             'status' => 'success',
-            'user' => $this->userService->geUserResource($user),
+            'user' => $this->authService->geUserResource($user),
             'access_token' => $token,
         ], 200);
 

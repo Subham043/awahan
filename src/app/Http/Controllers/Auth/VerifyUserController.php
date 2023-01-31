@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Services\Interfaces\UserInterface;
+use App\Http\Services\AuthService;
 use App\Http\Requests\OtpPostRequest;
 
 class VerifyUserController extends Controller
 {
-    private $userService;
+    private $authService;
 
-    public function __construct(UserInterface $userService)
+    public function __construct(AuthService $authService)
     {
-        $this->userService = $userService;
+        $this->authService = $authService;
     }
 
 /**
@@ -37,7 +37,7 @@ class VerifyUserController extends Controller
  *             mediaType="application/json",
  *             @OA\Schema(
  *                 type="object",
- * 
+ *
  *                  @OA\Property(
  *                     property="otp",
  *                     description="User OTP",
@@ -73,7 +73,7 @@ class VerifyUserController extends Controller
 * )
 */
     public function verify_user(OtpPostRequest $request, $user_id){
-        $user = $this->userService->getById($this->userService->decryptId($user_id));
+        $user = $this->authService->getById($this->authService->decryptId($user_id));
 
         if($request->otp!=$user->otp){
             return response()->json([
@@ -82,14 +82,14 @@ class VerifyUserController extends Controller
             ], 400);
         }
 
-        $user = $this->userService->verify_user($user->id);
+        $user = $this->authService->verify_user($user->id);
 
         $token = Auth::login($user);
 
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
-            'user' => $this->userService->geUserResource($user),
+            'user' => $this->authService->geUserResource($user),
             'access_token' => $token,
         ], 200);
     }
