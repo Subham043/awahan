@@ -7,7 +7,6 @@ use App\Http\Resources\UserCollection;
 use App\Exceptions\UserAccessException;
 use App\Http\Requests\RegisterPostRequest;
 use App\Http\Requests\ResetPasswordPostRequest;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Collection;
 

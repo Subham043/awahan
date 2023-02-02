@@ -6,6 +6,7 @@ use App\Exceptions\CustomJsonException;
 use App\Http\Services\AuthService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class PasswordPostRequest extends FormRequest
 {
@@ -35,7 +36,15 @@ class PasswordPostRequest extends FormRequest
     {
         return [
             'old_password' => 'required|string|min:6',
-            'password' => 'required|string|min:6',
+            'password' => ['required',
+                'string',
+                Password::min(8)
+                        ->letters()
+                        ->mixedCase()
+                        ->numbers()
+                        ->symbols()
+                        ->uncompromised()
+            ],
             'confirm_password' => 'string|min:6|required_with:password|same:password',
         ];
     }

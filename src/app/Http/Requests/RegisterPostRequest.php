@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class RegisterPostRequest extends FormRequest
 {
@@ -29,7 +30,15 @@ class RegisterPostRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|string|max:10|unique:users',
-            'password' => 'required|string|min:6',
+            'password' => ['required',
+                'string',
+                Password::min(8)
+                        ->letters()
+                        ->mixedCase()
+                        ->numbers()
+                        ->symbols()
+                        ->uncompromised()
+            ],
             'confirm_password' => 'string|min:6|required_with:password|same:password',
         ];
     }
