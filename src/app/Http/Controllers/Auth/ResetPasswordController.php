@@ -18,10 +18,19 @@ class ResetPasswordController extends Controller
 
         /**
  * @OA\Post(
- *     path="/api/auth/reset-password",
+ *     path="/api/auth/reset-password/{id}",
  *     tags={"Auth"},
  *     summary="Update Password of Unauthenticated User",
  *     description="Returns registered user data",
+ *     @OA\Parameter(
+ *          name="id",
+ *          description="User id",
+ *          required=true,
+ *          in="path",
+ *          @OA\Schema(
+ *              type="string"
+ *          )
+ *      ),
  *     @OA\RequestBody(
  *         @OA\MediaType(
  *             mediaType="application/json",
@@ -45,7 +54,13 @@ class ResetPasswordController extends Controller
  *                     description="User New Password",
  *                     example="subham",
  *                     type="string"
- *                 )
+ *                 ),
+ *                  @OA\Property(
+ *                     property="confirm_password",
+ *                     description="User Confirm Password",
+ *                     example="subham",
+ *                     type="string"
+ *                 ),
  *             )
  *          )
  *     ),

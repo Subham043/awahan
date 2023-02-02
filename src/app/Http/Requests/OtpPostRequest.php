@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\CustomJsonException;
 use App\Http\Services\AuthService;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -38,18 +37,31 @@ class OtpPostRequest extends FormRequest
     }
 
     /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $user_id = $this->route('user_id');
+            $request = $this->safe()->only('otp');
+            $user = $this->authService->getById($this->authService->decryptId($user_id));
+            if($request['otp']!=$user->otp){
+                $validator->errors()->add('otp', 'Oops! You have entered wrong otp!');
+            }
+        });
+    }
+
+    /**
      * Handle a passed validation attempt.
      *
      * @return void
      */
     protected function passedValidation()
     {
-        $user_id = $this->route('user_id');
         $request = $this->safe()->only('otp');
-        $user = $this->authService->getById($this->authService->decryptId($user_id));
-        if($request['otp']!=$user->otp){
-            throw new CustomJsonException('Oops! You have entered wrong otp', 400);
-        }
         $this->replace($request);
     }
 }

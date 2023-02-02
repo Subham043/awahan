@@ -43,7 +43,13 @@ class PasswordUpdateController extends Controller
  *                     description="User New Password",
  *                     example="subham",
  *                     type="string"
- *                 )
+ *                 ),
+ *                  @OA\Property(
+ *                     property="confirm_password",
+ *                     description="User Confirm Password",
+ *                     example="subham",
+ *                     type="string"
+ *                 ),
  *             )
  *          )
  *     ),

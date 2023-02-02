@@ -224,6 +224,11 @@
                                         "description": "User New Password",
                                         "type": "string",
                                         "example": "subham"
+                                    },
+                                    "confirm_password": {
+                                        "description": "User Confirm Password",
+                                        "type": "string",
+                                        "example": "subham"
                                     }
                                 },
                                 "type": "object"
@@ -501,14 +506,25 @@
                 }
             }
         },
-        "/api/auth/reset-password": {
+        "/api/auth/reset-password/{id}": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Update Password of Unauthenticated User",
                 "description": "Returns registered user data",
-                "operationId": "5df66b266ad585ca403c80f41005cc7a",
+                "operationId": "79155451cba96ca62dcacff03b6d03b0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -526,6 +542,11 @@
                                     },
                                     "password": {
                                         "description": "User New Password",
+                                        "type": "string",
+                                        "example": "subham"
+                                    },
+                                    "confirm_password": {
+                                        "description": "User Confirm Password",
                                         "type": "string",
                                         "example": "subham"
                                     }

@@ -49,6 +49,24 @@ class ResetPasswordPostRequest extends FormRequest
     }
 
     /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $user_id = $this->route('user_id');
+            $request = $this->safe()->only('otp', 'password');
+            $user = $this->userService->getById($this->userService->decryptId($user_id));
+            if($request['otp']!=$user->otp){
+                $validator->errors()->add('otp', 'Oops! You have entered wrong otp!');
+            }
+        });
+    }
+
+    /**
      * Handle a passed validation attempt.
      *
      * @return void
