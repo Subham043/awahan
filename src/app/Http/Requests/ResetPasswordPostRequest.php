@@ -73,12 +73,7 @@ class ResetPasswordPostRequest extends FormRequest
      */
     protected function passedValidation()
     {
-        $user_id = $this->route('user_id');
         $request = $this->safe()->only('otp', 'password');
-        $user = $this->userService->getById($this->userService->decryptId($user_id));
-        if($request['otp']!=$user->otp){
-            throw new CustomJsonException('Oops! You have entered wrong otp', 400);
-        }
         $request['password'] = Hash::make($this->password);
         $request['otp'] = rand(1000,9999);
         $this->replace($request);
