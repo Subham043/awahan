@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\CustomJsonException;
 use App\Http\Controllers\Controller;
 use App\Http\Services\AuthService;
 use App\Http\Requests\LoginPostRequest;
@@ -71,10 +72,7 @@ class LoginController extends Controller
         $token = $this->authService->login($request->all());
 
         if (!$token) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Invalid Credentials',
-            ], 401);
+            throw new CustomJsonException('Oops! Invalid Credentials', 401);
         }
 
         $user = $this->authService->getByEmail($request->email);

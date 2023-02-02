@@ -50,6 +50,21 @@ class PasswordPostRequest extends FormRequest
     }
 
     /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if (!Hash::check($this->old_password, $this->authService->auth_user_details()->getPassword())) {
+                $validator->errors()->add('old_password', 'Old password is incorrect!');
+            }
+        });
+    }
+
+    /**
      * Handle a passed validation attempt.
      *
      * @return void
@@ -57,9 +72,6 @@ class PasswordPostRequest extends FormRequest
     protected function passedValidation()
     {
         $request = $this->safe()->only('old_password', 'password');
-        if (!Hash::check($request['old_password'], $this->authService->auth_user_details()->getPassword())) {
-            throw new CustomJsonException('Oops! Incorrect Old Password', 400);
-        }
         $this->replace(['password' => Hash::make($request['password'])]);
     }
 }
