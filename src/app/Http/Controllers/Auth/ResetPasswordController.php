@@ -75,19 +75,7 @@ class ResetPasswordController extends Controller
 * )
 */
     public function reset_password(ResetPasswordPostRequest $request, $user_id){
-        $user = $this->userService->getById($this->userService->decryptId($user_id));
-
-        $this->userService->hasAccess($user);
-
-        if($request->otp!=$user->otp){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! You have entered wrong otp',
-            ], 400);
-        }
-
-        $user->password = Hash::make($request->password);
-        $user->save();
+        $this->userService->reset_password($request, $user_id);
 
         return response()->json([
             'status' => 'success',

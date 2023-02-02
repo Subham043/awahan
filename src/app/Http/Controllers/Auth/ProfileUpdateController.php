@@ -84,9 +84,6 @@ class ProfileUpdateController extends Controller
 */
     public function profile_update(ProfilePostRequest $request)
     {
-        $user = $this->authService->getById($this->authService->auth_user_details()->id);
-        $this->authService->hasAccess($user);
-
         $user = $this->authService->profile_update($request);
 
         return response()->json([

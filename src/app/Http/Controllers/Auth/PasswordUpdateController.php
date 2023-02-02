@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\CustomJsonException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Services\AuthService;
@@ -73,18 +74,7 @@ class PasswordUpdateController extends Controller
 */
     public function password_update(PasswordPostRequest $request)
     {
-        $user = $this->authService->getById($this->authService->auth_user_details()->id);
-        $this->authService->hasAccess($user);
-
-        if (!Hash::check($request->old_password, $user->getPassword())) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! Incorrect Password.',
-            ], 400);
-        }
-
-        $user->password = Hash::make($request->password);
-        $user->save();
+        $user = $this->authService->password_update($request);
 
         return response()->json([
             'status' => 'success',

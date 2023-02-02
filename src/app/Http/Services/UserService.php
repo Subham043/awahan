@@ -3,12 +3,13 @@
 namespace App\Http\Services;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserCollection;
 use App\Exceptions\UserAccessException;
 use App\Http\Requests\RegisterPostRequest;
+use App\Http\Requests\ResetPasswordPostRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserService
 {
@@ -19,7 +20,7 @@ class UserService
         $this->userModel = $userModel;
     }
 
-    public function all()
+    public function all(): Collection
     {
         return $this->userModel->all();
     }
@@ -41,14 +42,7 @@ class UserService
 
     public function create(RegisterPostRequest $user) : User
     {
-        return $this->userModel->create([
-            'first_name' => $user['first_name'],
-            'last_name' => $user['last_name'],
-            'email' => $user['email'],
-            'phone' => $user['phone'],
-            'password' => Hash::make($user['password']),
-            'otp' => rand(1000,9999),
-        ]);
+        return $this->userModel->create($user->all());
     }
 
     public function hasAccess(User $user): void
@@ -61,6 +55,18 @@ class UserService
     public function decryptId(String $id): Int
     {
         return Crypt::decryptString($id);
+    }
+
+    public function reset_password(ResetPasswordPostRequest $request, String $user_id): void
+    {
+        # code...
+        $user = $this->getById($this->decryptId($user_id));
+
+        $this->hasAccess($user);
+
+        $user->update([
+            ...$request->all()
+        ]);
     }
 
 }

@@ -28,4 +28,15 @@ class LoginPostRequest extends FormRequest
             'password' => 'required|string',
         ];
     }
+
+    /**
+     * Handle a passed validation attempt.
+     *
+     * @return void
+     */
+    protected function passedValidation()
+    {
+        $request = $this->safe()->only('email', 'password');
+        $this->replace($request);
+    }
 }

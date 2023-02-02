@@ -68,8 +68,7 @@ class LoginController extends Controller
 */
     public function login(LoginPostRequest $request)
     {
-
-        $token = $this->authService->login($request);
+        $token = $this->authService->login($request->all());
 
         if (!$token) {
             return response()->json([

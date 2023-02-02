@@ -73,16 +73,8 @@ class VerifyUserController extends Controller
 * )
 */
     public function verify_user(OtpPostRequest $request, $user_id){
-        $user = $this->authService->getById($this->authService->decryptId($user_id));
 
-        if($request->otp!=$user->otp){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! You have entered wrong otp',
-            ], 400);
-        }
-
-        $user = $this->authService->verify_user($user->id);
+        $user = $this->authService->verify_user($user_id);
 
         $token = Auth::login($user);
 

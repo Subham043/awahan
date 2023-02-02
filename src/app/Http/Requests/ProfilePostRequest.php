@@ -31,4 +31,15 @@ class ProfilePostRequest extends FormRequest
             'phone' => 'required|string|max:10|unique:users,phone,'.Auth::user()->id,
         ];
     }
+
+    /**
+     * Handle a passed validation attempt.
+     *
+     * @return void
+     */
+    protected function passedValidation()
+    {
+        $request = $this->safe()->only('first_name', 'last_name', 'email', 'phone');
+        $this->replace($request);
+    }
 }

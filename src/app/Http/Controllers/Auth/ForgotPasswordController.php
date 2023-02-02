@@ -63,7 +63,7 @@ class ForgotPasswordController extends Controller
 */
     public function forgot_password(ForgotPasswordPostRequest $request){
 
-        $user = $this->authService->forgot_password($request->email);
+        $user = $this->authService->forgot_password($request);
 
         //dispatch(new SendForgotPasswordEmailJob($user));
 

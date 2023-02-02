@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\AuthService;
-use App\Http\Requests\LoginPostRequest;
+use App\Http\Requests\AdminLoginPostRequest;
 
 class AdminLoginController extends Controller
 {
@@ -67,9 +67,9 @@ class AdminLoginController extends Controller
 *      )
 * )
 */
-    public function login(LoginPostRequest $request)
+    public function login(AdminLoginPostRequest $request)
     {
-        $token = $this->authService->admin_login($request);
+        $token = $this->authService->login($request->all());
 
         if (!$token) {
             return response()->json([

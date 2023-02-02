@@ -27,4 +27,16 @@ class ForgotPasswordPostRequest extends FormRequest
             'email' => 'required|string|email|max:255',
         ];
     }
+
+    /**
+     * Handle a passed validation attempt.
+     *
+     * @return void
+     */
+    protected function passedValidation()
+    {
+        $request = $this->safe()->only('email');
+        $request['otp'] = rand(1000,9999);
+        $this->replace($request);
+    }
 }

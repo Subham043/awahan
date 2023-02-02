@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Exceptions\UnauthorizedAdminAccessException;
 use App\Exceptions\UserAccessException;
+use App\Exceptions\CustomJsonException;
 use Illuminate\Http\Response;
 
 class Handler extends ExceptionHandler
@@ -63,28 +64,28 @@ class Handler extends ExceptionHandler
                 'message' => $exception->getMessage(),
             ], 405);
         }
-        
+
         if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Oops! No data found ',
             ], Response::HTTP_NOT_FOUND);
         }
-        
+
         if ($exception instanceof NotFoundHttpException && $request->wantsJson()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Oops! Invalid link',
             ], Response::HTTP_NOT_FOUND);
         }
-        
+
         if ($exception instanceof DecryptException && $request->wantsJson()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Oops! You have entered invalid link',
             ], Response::HTTP_NOT_FOUND);
         }
-        
+
         if ($exception instanceof UnauthorizedAdminAccessException && $request->wantsJson()) {
             return response()->json([
                 'status' => 'error',
@@ -99,6 +100,13 @@ class Handler extends ExceptionHandler
                 'error_code' => $exception->showCustomErrorCode(),
                 'error_id' => $exception->showUserId(),
             ], 403);
+        }
+
+        if ($exception instanceof CustomJsonException && $request->wantsJson()) {
+            return response()->json([
+                'status' => $exception->showCustomErrorStatus(),
+                'message' => $exception->showCustomErrorMessage(),
+            ], $exception->showCustomErrorCode());
         }
 
         return parent::render($request, $exception);

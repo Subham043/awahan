@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterPostRequest extends FormRequest
 {
@@ -29,6 +30,20 @@ class RegisterPostRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|string|max:10|unique:users',
             'password' => 'required|string|min:6',
+            'confirm_password' => 'string|min:6|required_with:password|same:password',
         ];
+    }
+
+    /**
+     * Handle a passed validation attempt.
+     *
+     * @return void
+     */
+    protected function passedValidation()
+    {
+        $request = $this->safe()->only('first_name', 'last_name', 'email', 'phone', 'password');
+        $request['password'] = Hash::make($this->password);
+        $request['otp'] = rand(1000,9999);
+        $this->replace($request);
     }
 }
