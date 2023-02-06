@@ -646,9 +646,14 @@
                 "operationId": "af4cdedcf8384bfc43f384ef2299b64c",
                 "requestBody": {
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
+                                    "file": {
+                                        "description": "Banner Image",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
                                     "alt": {
                                         "description": "Banner Alt",
                                         "type": "string",
@@ -684,7 +689,12 @@
                     "422": {
                         "description": "Unprocessable Content"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/banner/delete/{id}": {
@@ -725,7 +735,12 @@
                     "422": {
                         "description": "Unprocessable Content"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/banner/display/{id}": {
@@ -766,7 +781,12 @@
                     "422": {
                         "description": "Unprocessable Content"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/banner/paginate": {
@@ -796,7 +816,12 @@
                     "422": {
                         "description": "Unprocessable Content"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/banner/random": {
@@ -850,9 +875,14 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
+                                    "file": {
+                                        "description": "Banner Image",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
                                     "alt": {
                                         "description": "Banner Alt",
                                         "type": "string",
@@ -862,6 +892,286 @@
                                         "description": "Banner Title",
                                         "type": "string",
                                         "example": "image title text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/counter/create": {
+            "post": {
+                "tags": [
+                    "Counter"
+                ],
+                "summary": "Create Counter",
+                "description": "Returns created counter data",
+                "operationId": "07c3cea8fc961b4bb34055456727b2c4",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "counter": {
+                                        "description": "Counter",
+                                        "type": "string",
+                                        "example": "2234"
+                                    },
+                                    "title": {
+                                        "description": "Title",
+                                        "type": "string",
+                                        "example": "title text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/counter/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Counter"
+                ],
+                "summary": "Display Counter",
+                "description": "Returns counter data",
+                "operationId": "8d5a96b668fa7da4ad001c66b327a595",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Counter id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/counter/display/{id}": {
+            "get": {
+                "tags": [
+                    "Counter"
+                ],
+                "summary": "Display Counter",
+                "description": "Returns counter data",
+                "operationId": "44cd7e58ddaf8918b4852782bd41f1f5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Counter id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/counter/paginate": {
+            "get": {
+                "tags": [
+                    "Counter"
+                ],
+                "summary": "Paginate Counter",
+                "description": "Returns counter collection data",
+                "operationId": "f2944534bdce6f262bfe95aad73d7a9b",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/counter/random": {
+            "get": {
+                "tags": [
+                    "Counter"
+                ],
+                "summary": "Display Random Counter",
+                "description": "Returns counter data",
+                "operationId": "0152f5ec5c499992ed8adb1489020286",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/counter/update/{id}": {
+            "post": {
+                "tags": [
+                    "Counter"
+                ],
+                "summary": "Update Counter",
+                "description": "Returns updated counter data",
+                "operationId": "cd0427dcdc01dadedf374c4b5a4e32ab",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Counter id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "counter": {
+                                        "description": "counter",
+                                        "type": "string",
+                                        "example": "22341"
+                                    },
+                                    "title": {
+                                        "description": "Counter Title",
+                                        "type": "string",
+                                        "example": "title text"
                                     }
                                 },
                                 "type": "object"

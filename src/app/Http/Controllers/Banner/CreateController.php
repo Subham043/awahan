@@ -26,10 +26,15 @@ class CreateController extends Controller
      *       },
  *     @OA\RequestBody(
  *         @OA\MediaType(
- *             mediaType="application/json",
+ *             mediaType="multipart/form-data",
  *             @OA\Schema(
  *                 type="object",
- *
+ *                  @OA\Property(
+ *                     property="file",
+ *                      format="binary",
+ *                     description="Banner Image",
+ *                     type="string"
+ *                 ),
  *                 @OA\Property(
  *                     property="alt",
  *                     description="Banner Alt",
