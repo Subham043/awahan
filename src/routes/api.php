@@ -14,6 +14,11 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ProfileUpdateController;
 use App\Http\Controllers\Auth\PasswordUpdateController;
+use App\Http\Controllers\Banner\CreateController as BannerCreateController;
+use App\Http\Controllers\Banner\DisplayController as BannerDisplayController;
+use App\Http\Controllers\Banner\PaginateController as BannerPaginateController;
+use App\Http\Controllers\Banner\DeleteController as BannerDeleteController;
+use App\Http\Controllers\Banner\UpdateController as BannerUpdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,5 +50,17 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
             Route::post('/password-update', [PasswordUpdateController::class, 'password_update', 'as' => 'password_update']);
             Route::get('/logout', [LogoutController::class, 'logout', 'as' => 'logout']);
         });
+    });
+
+    Route::prefix('/banner')->group(function () {
+
+        Route::group(['middleware' => ['auth:api','has.access']], function () {
+            Route::post('/create', [BannerCreateController::class, 'create', 'as' => 'create']);
+            Route::get('/display/{id}', [BannerDisplayController::class, 'display', 'as' => 'display']);
+            Route::get('/paginate', [BannerPaginateController::class, 'paginate', 'as' => 'paginate']);
+            Route::delete('/delete/{id}', [BannerDeleteController::class, 'delete', 'as' => 'delete']);
+            Route::post('/update/{id}', [BannerUpdateController::class, 'update', 'as' => 'update']);
+        });
+
     });
 });

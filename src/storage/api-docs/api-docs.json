@@ -635,6 +635,57 @@
                     }
                 }
             }
+        },
+        "/api/banner/create": {
+            "post": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Create Banner",
+                "description": "Returns created banner data",
+                "operationId": "af4cdedcf8384bfc43f384ef2299b64c",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "alt": {
+                                        "description": "Banner Alt",
+                                        "type": "string",
+                                        "example": "image alt text"
+                                    },
+                                    "title": {
+                                        "description": "Banner Title",
+                                        "type": "string",
+                                        "example": "image title text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
         }
     },
     "tags": [
