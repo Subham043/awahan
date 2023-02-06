@@ -21,7 +21,7 @@ class Banner extends Model
     protected function imagePath(): Attribute
     {
         return new Attribute(
-            get: fn () => asset('storage/upload/banner/'.$this->image),
+            get: fn () => asset('storage/upload/banner/'.$this->image)
         );
     }
 

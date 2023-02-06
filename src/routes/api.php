@@ -19,6 +19,7 @@ use App\Http\Controllers\Banner\DisplayController as BannerDisplayController;
 use App\Http\Controllers\Banner\PaginateController as BannerPaginateController;
 use App\Http\Controllers\Banner\DeleteController as BannerDeleteController;
 use App\Http\Controllers\Banner\UpdateController as BannerUpdateController;
+use App\Http\Controllers\Banner\RandomController as BannerRandomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
             Route::post('/create', [BannerCreateController::class, 'create', 'as' => 'create']);
             Route::get('/display/{id}', [BannerDisplayController::class, 'display', 'as' => 'display']);
             Route::get('/paginate', [BannerPaginateController::class, 'paginate', 'as' => 'paginate']);
+            Route::get('/random', [BannerRandomController::class, 'random', 'as' => 'random']);
             Route::delete('/delete/{id}', [BannerDeleteController::class, 'delete', 'as' => 'delete']);
             Route::post('/update/{id}', [BannerUpdateController::class, 'update', 'as' => 'update']);
         });

@@ -9,6 +9,7 @@ use App\Http\Requests\BannerUpdatePostRequest;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Collection;
 use App\Http\Services\FileService;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,12 @@ class BannerService
         return $this->bannerModel->all();
     }
 
-    public function pagination(Request $request)
+    public function random(): Collection
+    {
+        return $this->bannerModel->inRandomOrder()->limit(4)->get();
+    }
+
+    public function pagination(Request $request): LengthAwarePaginator
     {
         return $this->bannerModel->orderBy('id', 'DESC')->paginate(10);
     }
