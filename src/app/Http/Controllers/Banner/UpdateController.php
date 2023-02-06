@@ -17,10 +17,22 @@ class UpdateController extends Controller
 
 /**
  * @OA\Post(
- *     path="/api/banner/create",
+ *     path="/api/banner/update/{id}",
  *     tags={"Banner"},
- *     summary="Create Banner",
- *     description="Returns created banner data",
+ *     summary="Update Banner",
+ *     description="Returns updated banner data",
+ * security={
+     *           {"bearerAuth": {}}
+     *       },
+ *     @OA\Parameter(
+ *          name="id",
+ *          description="Banner id",
+ *          required=true,
+ *          in="path",
+ *          @OA\Schema(
+ *              type="string"
+ *          )
+ *      ),
  *     @OA\RequestBody(
  *         @OA\MediaType(
  *             mediaType="application/json",

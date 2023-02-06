@@ -21,6 +21,9 @@ class CreateController extends Controller
  *     tags={"Banner"},
  *     summary="Create Banner",
  *     description="Returns created banner data",
+ * security={
+     *           {"bearerAuth": {}}
+     *       },
  *     @OA\RequestBody(
  *         @OA\MediaType(
  *             mediaType="application/json",

@@ -20,9 +20,12 @@ class DisplayController extends Controller
  *     tags={"Banner"},
  *     summary="Display Banner",
  *     description="Returns banner data",
+ * security={
+     *           {"bearerAuth": {}}
+     *       },
  * @OA\Parameter(
  *          name="id",
- *          description="User id",
+ *          description="Banner id",
  *          required=true,
  *          in="path",
  *          @OA\Schema(

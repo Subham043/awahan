@@ -21,6 +21,9 @@ class PaginateController extends Controller
  *     tags={"Banner"},
  *     summary="Paginate Banner",
  *     description="Returns banner collection data",
+ * security={
+     *           {"bearerAuth": {}}
+     *       },
  *     @OA\Response(
  *          response=200,
  *          description="Successful operation",

@@ -686,6 +686,215 @@
                     }
                 }
             }
+        },
+        "/api/banner/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Display Banner",
+                "description": "Returns banner data",
+                "operationId": "600435e249acfafea928f016963e47ec",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Banner id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/banner/display/{id}": {
+            "get": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Display Banner",
+                "description": "Returns banner data",
+                "operationId": "b5b4c2435c5665d32a8688c8fcfa9c9f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Banner id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/banner/paginate": {
+            "get": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Paginate Banner",
+                "description": "Returns banner collection data",
+                "operationId": "74cab402f51ab94932d2e994b9d56bf1",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/banner/random": {
+            "get": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Display Random Banner",
+                "description": "Returns banner data",
+                "operationId": "2848d8aacc8bcc880df969d62241fd56",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/banner/update/{id}": {
+            "post": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Update Banner",
+                "description": "Returns updated banner data",
+                "operationId": "bf6decaeaf7d5bef994dd55fdf62ec76",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Banner id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "alt": {
+                                        "description": "Banner Alt",
+                                        "type": "string",
+                                        "example": "image alt text"
+                                    },
+                                    "title": {
+                                        "description": "Banner Title",
+                                        "type": "string",
+                                        "example": "image title text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "tags": [
