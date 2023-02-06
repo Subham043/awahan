@@ -20,6 +20,12 @@ use App\Http\Controllers\Banner\PaginateController as BannerPaginateController;
 use App\Http\Controllers\Banner\DeleteController as BannerDeleteController;
 use App\Http\Controllers\Banner\UpdateController as BannerUpdateController;
 use App\Http\Controllers\Banner\RandomController as BannerRandomController;
+use App\Http\Controllers\Counter\CreateController as CounterCreateController;
+use App\Http\Controllers\Counter\DisplayController as CounterDisplayController;
+use App\Http\Controllers\Counter\PaginateController as CounterPaginateController;
+use App\Http\Controllers\Counter\DeleteController as CounterDeleteController;
+use App\Http\Controllers\Counter\UpdateController as CounterUpdateController;
+use App\Http\Controllers\Counter\RandomController as CounterRandomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,10 +65,23 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
             Route::post('/create', [BannerCreateController::class, 'create', 'as' => 'create']);
             Route::get('/display/{id}', [BannerDisplayController::class, 'display', 'as' => 'display']);
             Route::get('/paginate', [BannerPaginateController::class, 'paginate', 'as' => 'paginate']);
-            Route::get('/random', [BannerRandomController::class, 'random', 'as' => 'random']);
             Route::delete('/delete/{id}', [BannerDeleteController::class, 'delete', 'as' => 'delete']);
             Route::post('/update/{id}', [BannerUpdateController::class, 'update', 'as' => 'update']);
         });
 
+        Route::get('/random', [BannerRandomController::class, 'random', 'as' => 'random']);
+    });
+
+    Route::prefix('/counter')->group(function () {
+
+        Route::group(['middleware' => ['auth:api','has.access']], function () {
+            Route::post('/create', [CounterCreateController::class, 'create', 'as' => 'create']);
+            Route::get('/display/{id}', [CounterDisplayController::class, 'display', 'as' => 'display']);
+            Route::get('/paginate', [CounterPaginateController::class, 'paginate', 'as' => 'paginate']);
+            Route::delete('/delete/{id}', [CounterDeleteController::class, 'delete', 'as' => 'delete']);
+            Route::post('/update/{id}', [CounterUpdateController::class, 'update', 'as' => 'update']);
+        });
+
+        Route::get('/random', [CounterRandomController::class, 'random', 'as' => 'random']);
     });
 });

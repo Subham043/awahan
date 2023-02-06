@@ -42,12 +42,12 @@ class BannerService
         return $this->bannerModel->findOrFail($id);
     }
 
-    public function geBannerResource(Banner $banner): BannerCollection
+    public function getBannerResource(Banner $banner): BannerCollection
     {
         return BannerCollection::make($banner);
     }
 
-    public function geBannerCollection($banner): AnonymousResourceCollection
+    public function getBannerCollection($banner): AnonymousResourceCollection
     {
         return BannerCollection::collection($banner);
     }

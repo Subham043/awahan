@@ -51,7 +51,7 @@ class RandomController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => $this->bannerService->geBannerCollection($banner),
+            'data' => $this->bannerService->getBannerCollection($banner),
         ], 200);
 
     }

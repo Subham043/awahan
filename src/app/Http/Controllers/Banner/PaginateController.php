@@ -52,7 +52,7 @@ class PaginateController extends Controller
     public function paginate(Request $request)
     {
         $banner = $this->bannerService->pagination($request);
-        return $this->bannerService->geBannerCollection($banner);
+        return $this->bannerService->getBannerCollection($banner);
 
     }
 }

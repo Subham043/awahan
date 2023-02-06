@@ -63,7 +63,7 @@ class DisplayController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => $this->bannerService->geBannerResource($banner),
+            'data' => $this->bannerService->getBannerResource($banner),
         ], 201);
 
     }
