@@ -5,7 +5,7 @@ namespace App\Http\Services;
 use App\Models\Counter;
 use App\Http\Resources\CounterCollection;
 use App\Http\Requests\CounterPostRequest;
-use Illuminate\Support\Facades\Crypt;
+use App\Http\Services\DecryptService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -55,21 +55,16 @@ class CounterService
         return $this->counterModel->create($request->all());
     }
 
-    public function decryptId(String $id): Int
-    {
-        return Crypt::decryptString($id);
-    }
-
     public function delete(String $id): Counter
     {
-        $counter = $this->getById($this->decryptId($id));
+        $counter = $this->getById((new DecryptService)->decryptId($id));
         $counter->delete();
         return $counter;
     }
 
     public function update(CounterPostRequest $request, String $id) : Counter
     {
-        $counter = $this->getById($this->decryptId($id));
+        $counter = $this->getById((new DecryptService)->decryptId($id));
         $counter->update($request->all());
         return $counter;
     }

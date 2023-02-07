@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\DonationPage;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\DecryptService;
 use App\Http\Services\DonationPageService;
 
 class DisplayController extends Controller
@@ -59,7 +60,7 @@ class DisplayController extends Controller
 */
     public function display($id)
     {
-        $donationPage = $this->donationPageService->getById($this->donationPageService->decryptId($id));
+        $donationPage = $this->donationPageService->getById((new DecryptService)->decryptId($id));
 
         return response()->json([
             'status' => 'success',

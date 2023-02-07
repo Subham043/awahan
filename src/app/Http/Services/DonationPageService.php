@@ -6,9 +6,9 @@ use App\Models\DonationPage;
 use App\Http\Resources\DonationPageCollection;
 use App\Http\Requests\DonationPageCreatePostRequest;
 use App\Http\Requests\DonationPageUpdatePostRequest;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Collection;
 use App\Http\Services\FileService;
+use App\Http\Services\DecryptService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Request;
@@ -68,14 +68,9 @@ class DonationPageService
         ]);
     }
 
-    public function decryptId(String $id): Int
-    {
-        return Crypt::decryptString($id);
-    }
-
     public function delete(String $id): DonationPage
     {
-        $donationPage = $this->getById($this->decryptId($id));
+        $donationPage = $this->getById((new DecryptService)->decryptId($id));
         (new FileService)->delete_file('app/'.$this->path.'/'.$donationPage->image);
         $donationPage->delete();
         return $donationPage;
@@ -83,7 +78,7 @@ class DonationPageService
 
     public function update(DonationPageUpdatePostRequest $request, String $id) : DonationPage
     {
-        $donationPage = $this->getById($this->decryptId($id));
+        $donationPage = $this->getById((new DecryptService)->decryptId($id));
         if($request->hasFile('image')){
             $image = (new FileService)->save_file($request, 'image', $this->path);
             (new FileService)->delete_file('app/'.$this->path.'/'.$donationPage->image);

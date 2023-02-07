@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Counter;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\CounterService;
+use App\Http\Services\DecryptService;
 
 class DisplayController extends Controller
 {
@@ -59,7 +60,7 @@ class DisplayController extends Controller
 */
     public function display($id)
     {
-        $counter = $this->counterService->getById($this->counterService->decryptId($id));
+        $counter = $this->counterService->getById((new DecryptService)->decryptId($id));
 
         return response()->json([
             'status' => 'success',

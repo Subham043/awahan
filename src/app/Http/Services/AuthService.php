@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfilePostRequest;
 use Carbon\Carbon;
+use App\Http\Services\DecryptService;
 
 class AuthService extends UserService
 {
@@ -49,7 +50,7 @@ class AuthService extends UserService
 
     public function send_otp(String $id): User
     {
-        $decryptedId = $this->decryptId($id);
+        $decryptedId = (new DecryptService)->decryptId($id);
         $user = $this->getById($decryptedId);
         $user->update([
             'otp' => rand(1000,9999),
@@ -60,7 +61,7 @@ class AuthService extends UserService
 
     public function verify_user(String $id): User
     {
-        $decryptedId = $this->decryptId($id);
+        $decryptedId = (new DecryptService)->decryptId($id);
         $user = $this->getById($decryptedId);
         $user->update([
             'otp' => rand(1000,9999),

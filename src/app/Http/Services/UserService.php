@@ -8,7 +8,6 @@ use App\Http\Resources\UserCollection;
 use App\Exceptions\UserAccessException;
 use App\Http\Requests\RegisterPostRequest;
 use App\Http\Requests\ResetPasswordPostRequest;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserService
@@ -52,15 +51,12 @@ class UserService
         }
     }
 
-    public function decryptId(String $id): Int
-    {
-        return Crypt::decryptString($id);
-    }
-
     public function reset_password(ResetPasswordPostRequest $request, String $user_id): void
     {
         # code...
-        $user = $this->getById($this->decryptId($user_id));
+        $user = $this->getById(
+            (new DecryptService)->decryptId($user_id)
+        );
 
         $this->hasAccess($user);
 

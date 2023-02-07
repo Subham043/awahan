@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Services\AuthService;
+use App\Http\Services\DecryptService;
 use Illuminate\Foundation\Http\FormRequest;
 use Stevebauman\Purify\Facades\Purify;
 
@@ -48,7 +49,9 @@ class OtpPostRequest extends FormRequest
         $validator->after(function ($validator) {
             $user_id = $this->route('user_id');
             $request = $this->safe()->only('otp');
-            $user = $this->authService->getById($this->authService->decryptId($user_id));
+            $user = $this->authService->getById(
+                (new DecryptService)->decryptId($user_id)
+            );
             if($request['otp']!=$user->otp){
                 $validator->errors()->add('otp', 'Oops! You have entered wrong otp!');
             }

@@ -6,9 +6,9 @@ use App\Models\Banner;
 use App\Http\Resources\BannerCollection;
 use App\Http\Requests\BannerCreatePostRequest;
 use App\Http\Requests\BannerUpdatePostRequest;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Collection;
 use App\Http\Services\FileService;
+use App\Http\Services\DecryptService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Request;
@@ -63,14 +63,9 @@ class BannerService
         ]);
     }
 
-    public function decryptId(String $id): Int
-    {
-        return Crypt::decryptString($id);
-    }
-
     public function delete(String $id): Banner
     {
-        $banner = $this->getById($this->decryptId($id));
+        $banner = $this->getById((new DecryptService)->decryptId($id));
         (new FileService)->delete_file('app/'.$this->path.'/'.$banner->image);
         $banner->delete();
         return $banner;
@@ -78,7 +73,7 @@ class BannerService
 
     public function update(BannerUpdatePostRequest $request, String $id) : Banner
     {
-        $banner = $this->getById($this->decryptId($id));
+        $banner = $this->getById((new DecryptService)->decryptId($id));
         if($request->hasFile('image')){
             $image = (new FileService)->save_file($request, 'image', $this->path);
             (new FileService)->delete_file('app/'.$this->path.'/'.$banner->image);

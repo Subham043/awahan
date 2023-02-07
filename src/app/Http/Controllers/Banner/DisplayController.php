@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Banner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\BannerService;
+use App\Http\Services\DecryptService;
 
 class DisplayController extends Controller
 {
@@ -59,7 +60,10 @@ class DisplayController extends Controller
 */
     public function display($id)
     {
-        $banner = $this->bannerService->getById($this->bannerService->decryptId($id));
+
+        $banner = $this->bannerService->getById(
+            (new DecryptService)->decryptId($id)
+        );
 
         return response()->json([
             'status' => 'success',

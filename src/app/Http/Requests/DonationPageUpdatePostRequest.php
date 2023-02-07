@@ -2,18 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\BannerCreatePostRequest;
-use App\Http\Services\DonationPageService;
+use App\Http\Requests\DonationPageCreatePostRequest;
+use App\Http\Services\DecryptService;
 
 class DonationPageUpdatePostRequest extends DonationPageCreatePostRequest
 {
-
-    private $donationPageService;
-
-    public function __construct(DonationPageService $donationPageService)
-    {
-        $this->donationPageService = $donationPageService;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -27,7 +20,7 @@ class DonationPageUpdatePostRequest extends DonationPageCreatePostRequest
             'image_alt' => 'nullable|string',
             'image_title' => 'nullable|string',
             'donation_title' => 'required|string',
-            'slug' => 'required|string|alpha_dash:ascii|unique:donation_pages,slug,'.$this->donationPageService->decryptId($this->route('id')),
+            'slug' => 'required|string|alpha_dash:ascii|unique:donation_pages,slug,'.(new DecryptService)->decryptId($this->route('id')),
             'funds_required' => 'required|numeric',
             'fund_required_within' => 'required|date_format:"Y-m-d H:i:s"',
             'campaigner_name' => 'required|string',
