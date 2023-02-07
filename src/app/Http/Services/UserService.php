@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Enums\UserStatusEnum;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
 use App\Exceptions\UserAccessException;
@@ -46,7 +47,7 @@ class UserService
 
     public function hasAccess(User $user): void
     {
-        if($user->status==2 || $user->status==0){
+        if($user->status==UserStatusEnum::BLOCKED->label() || $user->status==UserStatusEnum::VERIFICATION_PENDING->label()){
             throw new UserAccessException($user);
         }
     }

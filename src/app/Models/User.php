@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\GenderEnum;
+use App\Enums\RoleEnum;
+use App\Enums\UserStatusEnum;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,6 +31,7 @@ class User extends Authenticatable implements JWTSubject
         'otp',
         'status',
         'userType',
+        'gender',
     ];
 
     /**
@@ -47,6 +51,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'gender' => GenderEnum::class
     ];
 
     protected $attributes = [
@@ -55,17 +60,6 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $appends = ['account_status', 'role'];
-
-    private $statuses = [
-        0 => "Verification Pending",
-        1 => "Active",
-        2 => "Blocked",
-    ];
-
-    private $roles = [
-        1 => "Admin",
-        2 => "User",
-    ];
 
 
     /**
@@ -95,14 +89,14 @@ class User extends Authenticatable implements JWTSubject
     protected function accountStatus(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->statuses[$this->status],
+            get: fn () => UserStatusEnum::getValue($this->status),
         );
     }
 
     protected function role(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->roles[$this->userType],
+            get: fn () => RoleEnum::getValue($this->userType),
         );
     }
 }

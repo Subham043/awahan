@@ -26,6 +26,7 @@ class UserCollection extends JsonResource
             'status' => $this->status,
             'userType' => $this->userType,
             'role' => $this->role,
+            'gender' => $this->gender,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

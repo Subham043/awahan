@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\RoleEnum;
 use Closure;
 use Illuminate\Http\Request;
 use Auth;
@@ -18,7 +19,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user() &&  Auth::user()->userType == 1) {
+        if (Auth::user() &&  Auth::user()->userType == RoleEnum::ADMIN->label()) {
             return $next($request);
         }
 

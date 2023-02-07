@@ -16,9 +16,9 @@ class SlugController extends Controller
 
 /**
  * @OA\Get(
- *     path="/api/donation-page/display/{slug}",
+ *     path="/api/donation-page/slug/{slug}",
  *     tags={"Donation Page"},
- *     summary="Display Donation Page",
+ *     summary="Display Donation Page using slug",
  *     description="Returns donation Page data",
  * @OA\Parameter(
  *          name="slug",
