@@ -26,6 +26,13 @@ use App\Http\Controllers\Counter\PaginateController as CounterPaginateController
 use App\Http\Controllers\Counter\DeleteController as CounterDeleteController;
 use App\Http\Controllers\Counter\UpdateController as CounterUpdateController;
 use App\Http\Controllers\Counter\RandomController as CounterRandomController;
+use App\Http\Controllers\DonationPage\CreateController as DonationPageCreateController;
+use App\Http\Controllers\DonationPage\DisplayController as DonationPageDisplayController;
+use App\Http\Controllers\DonationPage\SlugController as DonationPageSlugController;
+use App\Http\Controllers\DonationPage\PaginateController as DonationPagePaginateController;
+use App\Http\Controllers\DonationPage\DeleteController as DonationPageDeleteController;
+use App\Http\Controllers\DonationPage\UpdateController as DonationPageUpdateController;
+use App\Http\Controllers\DonationPage\RandomController as DonationPageRandomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,5 +90,19 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         });
 
         Route::get('/random', [CounterRandomController::class, 'random', 'as' => 'random']);
+    });
+
+    Route::prefix('/donation-page')->group(function () {
+
+        Route::group(['middleware' => ['auth:api','has.access']], function () {
+            Route::post('/create', [DonationPageCreateController::class, 'create', 'as' => 'create']);
+            Route::get('/display/{id}', [DonationPageDisplayController::class, 'display', 'as' => 'display']);
+            Route::get('/paginate', [DonationPagePaginateController::class, 'paginate', 'as' => 'paginate']);
+            Route::delete('/delete/{id}', [DonationPageDeleteController::class, 'delete', 'as' => 'delete']);
+            Route::post('/update/{id}', [DonationPageUpdateController::class, 'update', 'as' => 'update']);
+        });
+
+        Route::get('/slug/{slug}', [DonationPageSlugController::class, 'slug', 'as' => 'slug']);
+        Route::get('/random', [DonationPageRandomController::class, 'random', 'as' => 'random']);
     });
 });

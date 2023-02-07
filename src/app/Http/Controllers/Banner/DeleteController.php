@@ -18,7 +18,7 @@ class DeleteController extends Controller
  * @OA\Delete(
  *     path="/api/banner/delete/{id}",
  *     tags={"Banner"},
- *     summary="Display Banner",
+ *     summary="Delete Banner",
  *     description="Returns banner data",
  * security={
      *           {"bearerAuth": {}}

@@ -18,7 +18,7 @@ class DeleteController extends Controller
  * @OA\Delete(
  *     path="/api/counter/delete/{id}",
  *     tags={"Counter"},
- *     summary="Display Counter",
+ *     summary="Delete Counter",
  *     description="Returns counter data",
  * security={
      *           {"bearerAuth": {}}

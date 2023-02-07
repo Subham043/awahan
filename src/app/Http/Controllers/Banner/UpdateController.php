@@ -39,7 +39,7 @@ class UpdateController extends Controller
  *             @OA\Schema(
  *                 type="object",
  *                  @OA\Property(
- *                     property="file",
+ *                     property="imsge",
  *                      format="binary",
  *                     description="Banner Image",
  *                     type="string"

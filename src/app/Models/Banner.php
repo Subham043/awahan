@@ -27,6 +27,6 @@ class Banner extends Model
 
     public function UploadedBy()
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id')->withDefault();
     }
 }

@@ -30,7 +30,7 @@ class CreateController extends Controller
  *             @OA\Schema(
  *                 type="object",
  *                  @OA\Property(
- *                     property="file",
+ *                     property="image",
  *                      format="binary",
  *                     description="Banner Image",
  *                     type="string"

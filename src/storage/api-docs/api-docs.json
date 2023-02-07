@@ -649,7 +649,7 @@
                         "multipart/form-data": {
                             "schema": {
                                 "properties": {
-                                    "file": {
+                                    "image": {
                                         "description": "Banner Image",
                                         "type": "string",
                                         "format": "binary"
@@ -702,7 +702,7 @@
                 "tags": [
                     "Banner"
                 ],
-                "summary": "Display Banner",
+                "summary": "Delete Banner",
                 "description": "Returns banner data",
                 "operationId": "600435e249acfafea928f016963e47ec",
                 "parameters": [
@@ -878,7 +878,7 @@
                         "multipart/form-data": {
                             "schema": {
                                 "properties": {
-                                    "file": {
+                                    "imsge": {
                                         "description": "Banner Image",
                                         "type": "string",
                                         "format": "binary"
@@ -987,7 +987,7 @@
                 "tags": [
                     "Counter"
                 ],
-                "summary": "Display Counter",
+                "summary": "Delete Counter",
                 "description": "Returns counter data",
                 "operationId": "8d5a96b668fa7da4ad001c66b327a595",
                 "parameters": [
@@ -1172,6 +1172,396 @@
                                         "description": "Counter Title",
                                         "type": "string",
                                         "example": "title text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/donation-page/create": {
+            "post": {
+                "tags": [
+                    "Donation Page"
+                ],
+                "summary": "Create Donation Page",
+                "description": "Returns created donation page data",
+                "operationId": "3e8b14508940352df63919153d4364c6",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "description": "Image",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "image_alt": {
+                                        "description": "Image Alt",
+                                        "type": "string",
+                                        "example": "image alt text"
+                                    },
+                                    "image_title": {
+                                        "description": "Image Title",
+                                        "type": "string",
+                                        "example": "image title text"
+                                    },
+                                    "slug": {
+                                        "description": "Slug",
+                                        "type": "string",
+                                        "example": "slug"
+                                    },
+                                    "funds_required": {
+                                        "description": "Funds required",
+                                        "type": "string",
+                                        "example": "120000"
+                                    },
+                                    "fund_required_within": {
+                                        "description": "Funds required within",
+                                        "type": "string",
+                                        "example": "120000"
+                                    },
+                                    "campaigner_name": {
+                                        "description": "Campaigner Name",
+                                        "type": "string",
+                                        "example": "Dilip"
+                                    },
+                                    "campaigner_funds_collected": {
+                                        "description": "Campaigner funds collected till now",
+                                        "type": "string",
+                                        "example": "120000"
+                                    },
+                                    "beneficiary_name": {
+                                        "description": "Beneficiary Name",
+                                        "type": "string",
+                                        "example": "Ashish"
+                                    },
+                                    "beneficiary_relationship_with_campaigner": {
+                                        "description": "Relationship of beneficiary with campaigner",
+                                        "type": "string",
+                                        "example": "Sibling Of"
+                                    },
+                                    "beneficiary_funds_collected": {
+                                        "description": "Funds collected till now",
+                                        "type": "string",
+                                        "example": "120000"
+                                    },
+                                    "donation_detail": {
+                                        "description": "Detail of donation page",
+                                        "type": "string",
+                                        "example": "test"
+                                    },
+                                    "terms_condition": {
+                                        "description": "Terms & Condition",
+                                        "type": "string",
+                                        "example": "test"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/donation-page/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Donation Page"
+                ],
+                "summary": "Delete Donation Page",
+                "description": "Returns donation page data",
+                "operationId": "53fcceffb197734f8b34059aa5e9423c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Donation Page id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/donation-page/display/{id}": {
+            "get": {
+                "tags": [
+                    "Donation Page"
+                ],
+                "summary": "Display Donation Page",
+                "description": "Returns donation Page data",
+                "operationId": "0f9a86b5ee9087caba64adfb0a7483e3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Donation Page id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/donation-page/paginate": {
+            "get": {
+                "tags": [
+                    "Donation Page"
+                ],
+                "summary": "Paginate Donation Page",
+                "description": "Returns donation page collection data",
+                "operationId": "32f34efa92bc352dce31f1368f3ff108",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/donation-page/random": {
+            "get": {
+                "tags": [
+                    "Donation Page"
+                ],
+                "summary": "Display Random Donation Page",
+                "description": "Returns donation page data",
+                "operationId": "5d967c75affec4b42bfff1334daaa334",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/donation-page/update/{id}": {
+            "post": {
+                "tags": [
+                    "Donation Page"
+                ],
+                "summary": "Update Donation Page",
+                "description": "Returns updated donation page data",
+                "operationId": "53e784cc68f29605a62f92981c5f2f87",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Donation Page id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "description": "Image",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "image_alt": {
+                                        "description": "Image Alt",
+                                        "type": "string",
+                                        "example": "image alt text"
+                                    },
+                                    "image_title": {
+                                        "description": "Image Title",
+                                        "type": "string",
+                                        "example": "image title text"
+                                    },
+                                    "slug": {
+                                        "description": "Slug",
+                                        "type": "string",
+                                        "example": "slug"
+                                    },
+                                    "funds_required": {
+                                        "description": "Funds required",
+                                        "type": "string",
+                                        "example": "120000"
+                                    },
+                                    "fund_required_within": {
+                                        "description": "Funds required within",
+                                        "type": "string",
+                                        "example": "120000"
+                                    },
+                                    "campaigner_name": {
+                                        "description": "Campaigner Name",
+                                        "type": "string",
+                                        "example": "Dilip"
+                                    },
+                                    "campaigner_funds_collected": {
+                                        "description": "Campaigner funds collected till now",
+                                        "type": "string",
+                                        "example": "120000"
+                                    },
+                                    "beneficiary_name": {
+                                        "description": "Beneficiary Name",
+                                        "type": "string",
+                                        "example": "Ashish"
+                                    },
+                                    "beneficiary_relationship_with_campaigner": {
+                                        "description": "Relationship of beneficiary with campaigner",
+                                        "type": "string",
+                                        "example": "Sibling Of"
+                                    },
+                                    "beneficiary_funds_collected": {
+                                        "description": "Funds collected till now",
+                                        "type": "string",
+                                        "example": "120000"
+                                    },
+                                    "donation_detail": {
+                                        "description": "Detail of donation page",
+                                        "type": "string",
+                                        "example": "test"
+                                    },
+                                    "terms_condition": {
+                                        "description": "Terms & Condition",
+                                        "type": "string",
+                                        "example": "test"
                                     }
                                 },
                                 "type": "object"

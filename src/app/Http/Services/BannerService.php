@@ -17,6 +17,8 @@ class BannerService
 {
     private $bannerModel;
 
+    private $path = 'public/upload/banner';
+
     public function __construct(Banner $bannerModel)
     {
         $this->bannerModel = $bannerModel;
@@ -54,7 +56,7 @@ class BannerService
 
     public function create(BannerCreatePostRequest $request) : Banner
     {
-        $image = (new FileService)->save_file($request, 'image', 'public/upload/banner');
+        $image = (new FileService)->save_file($request, 'image', $this->path);
         return $this->bannerModel->create([
             ...$request->except('image'),
             'image' => $image,
@@ -69,7 +71,7 @@ class BannerService
     public function delete(String $id): Banner
     {
         $banner = $this->getById($this->decryptId($id));
-        (new FileService)->delete_file('app/public/upload/banner/'.$banner->image);
+        (new FileService)->delete_file('app/'.$this->path.'/'.$banner->image);
         $banner->delete();
         return $banner;
     }
@@ -78,8 +80,8 @@ class BannerService
     {
         $banner = $this->getById($this->decryptId($id));
         if($request->hasFile('image')){
-            $image = (new FileService)->save_file($request, 'image', 'public/upload/banner');
-            (new FileService)->delete_file('app/public/upload/banner/'.$banner->image);
+            $image = (new FileService)->save_file($request, 'image', $this->path);
+            (new FileService)->delete_file('app/'.$this->path.'/'.$banner->image);
             $banner->update([
                 ...$request->except('image'),
                 'image' => $image,
