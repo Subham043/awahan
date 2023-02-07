@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Stevebauman\Purify\Facades\Purify;
 
 class DonationPageCreatePostRequest extends FormRequest
 {
@@ -51,6 +52,6 @@ class DonationPageCreatePostRequest extends FormRequest
     {
         $request = $this->safe()->only('image', 'image_alt', 'image_title', 'donation_title', 'slug', 'funds_required', 'fund_required_within', 'campaigner_name', 'campaigner_funds_collected', 'beneficiary_name', 'beneficiary_relationship_with_campaigner', 'beneficiary_funds_collected', 'donation_detail', 'terms_condition');
         $request['user_id'] = Auth::user()->id;
-        $this->replace($request);
+        $this->replace(Purify::clean($request));
     }
 }

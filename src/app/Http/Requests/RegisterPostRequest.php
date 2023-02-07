@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Stevebauman\Purify\Facades\Purify;
 
 class RegisterPostRequest extends FormRequest
 {
@@ -53,6 +54,6 @@ class RegisterPostRequest extends FormRequest
         $request = $this->safe()->only('first_name', 'last_name', 'email', 'phone', 'password');
         $request['password'] = Hash::make($this->password);
         $request['otp'] = rand(1000,9999);
-        $this->replace($request);
+        $this->replace(Purify::clean($request));
     }
 }

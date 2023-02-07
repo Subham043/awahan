@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Stevebauman\Purify\Facades\Purify;
 
 class BannerCreatePostRequest extends FormRequest
 {
@@ -40,6 +41,6 @@ class BannerCreatePostRequest extends FormRequest
     {
         $request = $this->safe()->only('image', 'alt', 'title');
         $request['user_id'] = Auth::user()->id;
-        $this->replace($request);
+        $this->replace(Purify::clean($request));
     }
 }

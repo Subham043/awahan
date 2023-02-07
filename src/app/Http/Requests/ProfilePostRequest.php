@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Stevebauman\Purify\Facades\Purify;
+
 
 class ProfilePostRequest extends FormRequest
 {
@@ -40,6 +42,6 @@ class ProfilePostRequest extends FormRequest
     protected function passedValidation()
     {
         $request = $this->safe()->only('first_name', 'last_name', 'email', 'phone');
-        $this->replace($request);
+        $this->replace(Purify::clean($request));
     }
 }

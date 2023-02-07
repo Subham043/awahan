@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\CustomJsonException;
+use Stevebauman\Purify\Facades\Purify;
 use App\Http\Services\UserService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
@@ -76,6 +76,6 @@ class ResetPasswordPostRequest extends FormRequest
         $request = $this->safe()->only('otp', 'password');
         $request['password'] = Hash::make($this->password);
         $request['otp'] = rand(1000,9999);
-        $this->replace($request);
+        $this->replace(Purify::clean($request));
     }
 }

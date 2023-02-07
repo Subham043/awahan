@@ -88,14 +88,12 @@ class DonationPageService
             $image = (new FileService)->save_file($request, 'image', $this->path);
             (new FileService)->delete_file('app/'.$this->path.'/'.$donationPage->image);
             $donationPage->update([
-                ...$request->except('image'),
                 'image' => $image,
             ]);
-        }else{
-            $donationPage->update([
-                ...$request->except('image'),
-            ]);
         }
+        $donationPage->update([
+            ...$request->except('image'),
+        ]);
         return $donationPage;
     }
 

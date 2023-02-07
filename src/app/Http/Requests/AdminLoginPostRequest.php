@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
+use Stevebauman\Purify\Facades\Purify;
 
 class AdminLoginPostRequest extends LoginPostRequest
 {
@@ -8,6 +9,6 @@ class AdminLoginPostRequest extends LoginPostRequest
     {
         $request = $this->safe()->only('email', 'password');
         $request['userType'] = 1;
-        $this->replace($request);
+        $this->replace(Purify::clean($request));
     }
 }

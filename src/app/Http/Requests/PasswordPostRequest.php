@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\CustomJsonException;
+use Stevebauman\Purify\Facades\Purify;
 use App\Http\Services\AuthService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
@@ -72,6 +72,6 @@ class PasswordPostRequest extends FormRequest
     protected function passedValidation()
     {
         $request = $this->safe()->only('old_password', 'password');
-        $this->replace(['password' => Hash::make($request['password'])]);
+        $this->replace(Purify::clean(['password' => Hash::make($request['password'])]));
     }
 }

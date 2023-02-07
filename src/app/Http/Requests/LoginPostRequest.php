@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Stevebauman\Purify\Facades\Purify;
 
 class LoginPostRequest extends FormRequest
 {
@@ -37,6 +38,6 @@ class LoginPostRequest extends FormRequest
     protected function passedValidation()
     {
         $request = $this->safe()->only('email', 'password');
-        $this->replace($request);
+        $this->replace(Purify::clean($request));
     }
 }

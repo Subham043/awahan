@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Stevebauman\Purify\Facades\Purify;
 
 class CounterPostRequest extends FormRequest
 {
@@ -39,6 +40,6 @@ class CounterPostRequest extends FormRequest
     {
         $request = $this->safe()->only('counter', 'title');
         $request['user_id'] = Auth::user()->id;
-        $this->replace($request);
+        $this->replace(Purify::clean($request));
     }
 }

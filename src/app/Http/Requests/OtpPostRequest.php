@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Services\AuthService;
 use Illuminate\Foundation\Http\FormRequest;
+use Stevebauman\Purify\Facades\Purify;
 
 class OtpPostRequest extends FormRequest
 {
@@ -62,6 +63,6 @@ class OtpPostRequest extends FormRequest
     protected function passedValidation()
     {
         $request = $this->safe()->only('otp');
-        $this->replace($request);
+        $this->replace(Purify::clean($request));
     }
 }

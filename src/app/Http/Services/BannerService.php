@@ -83,14 +83,12 @@ class BannerService
             $image = (new FileService)->save_file($request, 'image', $this->path);
             (new FileService)->delete_file('app/'.$this->path.'/'.$banner->image);
             $banner->update([
-                ...$request->except('image'),
                 'image' => $image,
             ]);
-        }else{
-            $banner->update([
-                ...$request->except('image'),
-            ]);
         }
+        $banner->update([
+            ...$request->except('image'),
+        ]);
         return $banner;
     }
 
