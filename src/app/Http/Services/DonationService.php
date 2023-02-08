@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Enums\PaymentStatusEnum;
 use App\Models\Donation;
 use App\Http\Resources\DonationCollection;
 use App\Http\Requests\DonationCreatePostRequest;
@@ -69,6 +70,15 @@ class DonationService
         $donation = $this->donationModel->where('order_id', $request['order_id'])->firstOrFail();
         $donation->update($request->except('order_id'));
         return $donation;
+    }
+
+    public function verify_webhook(String $order_id, String $payment_id) : void
+    {
+        $donation = $this->donationModel->where('order_id', $order_id)->firstOrFail();
+        $donation->update([
+            "payment_id" => $payment_id,
+            "status" => PaymentStatusEnum::COMPLETED->label(),
+        ]);
     }
 
 }

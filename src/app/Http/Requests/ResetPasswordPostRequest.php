@@ -35,7 +35,13 @@ class ResetPasswordPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'otp' => 'required|string|max:4',
+            'otp' => ['required','integer','digits:4', function ($attribute, $value, $fail) {
+                $user_id = $this->route('user_id');
+                $user = $this->userService->getById((new DecryptService)->decryptId($user_id));
+                if($value!=$user->otp){
+                    $fail('The '.$attribute.' entered is invalid.');
+                }
+            },],
             'confirm_password' => 'string|min:6|required_with:password|same:password',
             'password' => ['required',
                 'string',
@@ -47,24 +53,6 @@ class ResetPasswordPostRequest extends FormRequest
                         ->uncompromised()
             ],
         ];
-    }
-
-    /**
-     * Configure the validator instance.
-     *
-     * @param  \Illuminate\Validation\Validator  $validator
-     * @return void
-     */
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $user_id = $this->route('user_id');
-            $request = $this->safe()->only('otp', 'password');
-            $user = $this->userService->getById((new DecryptService)->decryptId($user_id));
-            if($request['otp']!=$user->otp){
-                $validator->errors()->add('otp', 'Oops! You have entered wrong otp!');
-            }
-        });
     }
 
     /**

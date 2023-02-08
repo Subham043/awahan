@@ -21,23 +21,6 @@ class DonationVerifyPostRequest extends FormRequest
     }
 
     /**
-     * Configure the validator instance.
-     *
-     * @param  \Illuminate\Validation\Validator  $validator
-     * @return void
-     */
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $request = $this->safe()->only('razorpay_order_id', 'razorpay_payment_id', 'razorpay_signature');
-            $is_verified = (new RazorpayService)->verify_signature($request['razorpay_order_id'], $request['razorpay_payment_id'], $request['razorpay_signature']);
-            if(!$is_verified){
-                $validator->errors()->add('razorpay_signature', 'verification failed!');
-            }
-        });
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -45,9 +28,15 @@ class DonationVerifyPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'razorpay_order_id' => 'required|string|exists:donation,order_id',
+            'razorpay_order_id' => 'required|string|exists:donations,order_id',
             'razorpay_payment_id' => 'required|string',
-            'razorpay_signature' => 'required|string',
+            'razorpay_signature' => ['required','string', function ($attribute, $value, $fail) {
+                $request = $this->safe()->only('razorpay_order_id', 'razorpay_payment_id');
+                $is_verified = (new RazorpayService)->verify_signature($request['razorpay_order_id'], $request['razorpay_payment_id'], $value);
+                if(!$is_verified){
+                    $fail('The '.$attribute.' entered is invalid therefore donation verification failed!.');
+                }
+            }],
         ];
     }
 

@@ -24,7 +24,7 @@ class Donation extends Model
         'donation_page_id',
     ];
     protected $attributes = [
-        'status' => 1,
+        'status' => 0,
     ];
 
     protected $appends = ['payment_status'];

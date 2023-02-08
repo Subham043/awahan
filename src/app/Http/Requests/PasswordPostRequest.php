@@ -35,7 +35,11 @@ class PasswordPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => 'required|string|min:6',
+            'old_password' => ['required','string','min:6', function ($attribute, $value, $fail) {
+                if (!Hash::check($value, $this->authService->auth_user_details()->getPassword())) {
+                    $fail('The '.$attribute.' entered is incorrect.');
+                }
+            }],
             'password' => ['required',
                 'string',
                 Password::min(8)
@@ -47,21 +51,6 @@ class PasswordPostRequest extends FormRequest
             ],
             'confirm_password' => 'string|min:6|required_with:password|same:password',
         ];
-    }
-
-    /**
-     * Configure the validator instance.
-     *
-     * @param  \Illuminate\Validation\Validator  $validator
-     * @return void
-     */
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            if (!Hash::check($this->old_password, $this->authService->auth_user_details()->getPassword())) {
-                $validator->errors()->add('old_password', 'Old password is incorrect!');
-            }
-        });
     }
 
     /**
