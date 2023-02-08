@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Crypt;
 class DecryptService
 {
 
-    public function decryptId(String $id): Int
+    public function decryptId(String $id): String
     {
         return Crypt::decryptString($id);
     }

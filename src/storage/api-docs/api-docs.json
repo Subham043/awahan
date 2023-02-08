@@ -1206,6 +1206,290 @@
                 ]
             }
         },
+        "/api/donation/create": {
+            "post": {
+                "tags": [
+                    "Donation"
+                ],
+                "summary": "Create Donation",
+                "description": "Returns created donation data",
+                "operationId": "2679112969d5a12225edb26a4bfcc711",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Donor's Name",
+                                        "type": "string",
+                                        "example": "saha"
+                                    },
+                                    "phone": {
+                                        "description": "Donor's Phone",
+                                        "type": "string",
+                                        "example": "7892156160"
+                                    },
+                                    "email": {
+                                        "description": "Donor's Email",
+                                        "type": "string",
+                                        "example": "subham.5ine@gmail.com"
+                                    },
+                                    "amount": {
+                                        "description": "Donation Amount",
+                                        "type": "string",
+                                        "example": "100"
+                                    },
+                                    "message": {
+                                        "description": "Donation Message",
+                                        "type": "string",
+                                        "example": "test"
+                                    },
+                                    "donation_page_id": {
+                                        "description": "Donation Page id",
+                                        "type": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/donation/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Donation"
+                ],
+                "summary": "Delete Donation",
+                "description": "Returns donation data",
+                "operationId": "96f00b01911fc15c1e71e5d799fae65f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Donation id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/donation/display/{id}": {
+            "get": {
+                "tags": [
+                    "Donation"
+                ],
+                "summary": "Display Donation",
+                "description": "Returns donation data",
+                "operationId": "1f0118433720ce897608ba6c9a27e2c9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Donation id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/donation/paginate": {
+            "get": {
+                "tags": [
+                    "Donation"
+                ],
+                "summary": "Paginate Donation",
+                "description": "Returns donation collection data",
+                "operationId": "70df6b417da612c0af8174017c001ace",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/donation/random": {
+            "get": {
+                "tags": [
+                    "Donation"
+                ],
+                "summary": "Display Random Donation",
+                "description": "Returns donation data",
+                "operationId": "ea41a540daf31114d8193bc104c8a43a",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/api/donation/verify": {
+            "post": {
+                "tags": [
+                    "Donation"
+                ],
+                "summary": "Verify Donation",
+                "description": "Returns created donation data",
+                "operationId": "20e092a22f9de5453ae0bba0057af981",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "razorpay_order_id": {
+                                        "description": "Razorpay Order Id",
+                                        "type": "string",
+                                        "example": "xxxxxx"
+                                    },
+                                    "razorpay_payment_id": {
+                                        "description": "Razorpay Payment Id",
+                                        "type": "string",
+                                        "example": "xxxxxxxx"
+                                    },
+                                    "razorpay_signature": {
+                                        "description": "Razorpay Signature",
+                                        "type": "string",
+                                        "example": "xxxxxxx"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
         "/api/donation-page/create": {
             "post": {
                 "tags": [
@@ -1479,7 +1763,7 @@
                 "tags": [
                     "Donation Page"
                 ],
-                "summary": "Display Donation Page",
+                "summary": "Display Donation Page using slug",
                 "description": "Returns donation Page data",
                 "operationId": "7836e45bc74f74d116aaae13aa286fc6",
                 "parameters": [

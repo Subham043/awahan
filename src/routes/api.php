@@ -33,6 +33,12 @@ use App\Http\Controllers\DonationPage\PaginateController as DonationPagePaginate
 use App\Http\Controllers\DonationPage\DeleteController as DonationPageDeleteController;
 use App\Http\Controllers\DonationPage\UpdateController as DonationPageUpdateController;
 use App\Http\Controllers\DonationPage\RandomController as DonationPageRandomController;
+use App\Http\Controllers\Donation\CreateController as DonationCreateController;
+use App\Http\Controllers\Donation\DisplayController as DonationDisplayController;
+use App\Http\Controllers\Donation\PaginateController as DonationPaginateController;
+use App\Http\Controllers\Donation\DeleteController as DonationDeleteController;
+use App\Http\Controllers\Donation\VerifyController as DonationVerifyController;
+use App\Http\Controllers\Donation\RandomController as DonationRandomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,5 +110,18 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
         Route::get('/slug/{slug}', [DonationPageSlugController::class, 'slug', 'as' => 'slug']);
         Route::get('/random', [DonationPageRandomController::class, 'random', 'as' => 'random']);
+    });
+
+    Route::prefix('/donation')->group(function () {
+
+        Route::group(['middleware' => ['auth:api','has.access']], function () {
+            Route::get('/display/{id}', [DonationDisplayController::class, 'display', 'as' => 'display']);
+            Route::get('/paginate', [DonationPaginateController::class, 'paginate', 'as' => 'paginate']);
+            Route::delete('/delete/{id}', [DonationDeleteController::class, 'delete', 'as' => 'delete']);
+        });
+
+        Route::post('/create', [DonationCreateController::class, 'create', 'as' => 'create']);
+        Route::post('/verify', [DonationVerifyController::class, 'verify', 'as' => 'verify']);
+        Route::get('/random', [DonationRandomController::class, 'random', 'as' => 'random']);
     });
 });

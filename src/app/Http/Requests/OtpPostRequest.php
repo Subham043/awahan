@@ -44,19 +44,20 @@ class OtpPostRequest extends FormRequest
      * @param  \Illuminate\Validation\Validator  $validator
      * @return void
      */
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $user_id = $this->route('user_id');
-            $request = $this->safe()->only('otp');
-            $user = $this->authService->getById(
-                (new DecryptService)->decryptId($user_id)
-            );
-            if($request['otp']!=$user->otp){
-                $validator->errors()->add('otp', 'Oops! You have entered wrong otp!');
-            }
-        });
-    }
+    // public function withValidator($validator)
+    // {
+    //     $validator->after(function ($validator) {
+    //         $validator->errors()->add('otp', $this->otp);
+    //         // $user_id = $this->route('user_id');
+    //         // $request = $this->safe()->only('otp');
+    //         // $user = $this->authService->getById(
+    //         //     (new DecryptService)->decryptId($user_id)
+    //         // );
+    //         // if($request['otp']!=$user->otp){
+    //         //     $validator->errors()->add('otp', 'Oops! You have entered wrong otp!');
+    //         // }
+    //     });
+    // }
 
     /**
      * Handle a passed validation attempt.
@@ -66,6 +67,14 @@ class OtpPostRequest extends FormRequest
     protected function passedValidation()
     {
         $request = $this->safe()->only('otp');
+        $user_id = $this->route('user_id');
+        // $request = $this->safe()->only('otp');
+        $user = $this->authService->getById(
+            (new DecryptService)->decryptId($user_id)
+        );
+        if($request['otp']!=$user->otp){
+            $this->errors()->add('otp', 'Oops! You have entered wrong otp!');
+        }
         $this->replace(Purify::clean($request));
     }
 }

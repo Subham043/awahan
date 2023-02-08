@@ -46,7 +46,7 @@ class UserService
 
     public function hasAccess(User $user): void
     {
-        if($user->status==UserStatusEnum::BLOCKED->label() || $user->status==UserStatusEnum::VERIFICATION_PENDING->label()){
+        if($user->status==2 || $user->status==0){
             throw new UserAccessException($user);
         }
     }
