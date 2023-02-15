@@ -56,6 +56,12 @@ class UpdateController extends Controller
  *                     example="image title text",
  *                     type="string"
  *                 ),
+ *                 @OA\Property(
+ *                     property="title",
+ *                     description="Title",
+ *                     example="title text",
+ *                     type="string"
+ *                 ),
  *                  @OA\Property(
  *                     property="slug",
  *                     description="Slug",

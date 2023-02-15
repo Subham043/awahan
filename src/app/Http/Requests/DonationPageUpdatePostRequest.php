@@ -28,6 +28,10 @@ class DonationPageUpdatePostRequest extends DonationPageCreatePostRequest
             'beneficiary_name' => 'required|string',
             'beneficiary_relationship_with_campaigner' => 'required|string',
             'beneficiary_funds_collected' => 'required|numeric',
+            'beneficiary_bank_name' => 'required|string',
+            'beneficiary_bank_account_number' => 'required|numeric',
+            'beneficiary_bank_ifsc_code' => 'required|string',
+            'beneficiary_upi_id' => 'required|string',
             'donation_detail' => 'required',
             'terms_condition' => 'required',
         ];

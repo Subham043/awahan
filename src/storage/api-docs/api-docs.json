@@ -1518,6 +1518,11 @@
                                         "type": "string",
                                         "example": "image title text"
                                     },
+                                    "title": {
+                                        "description": "Title",
+                                        "type": "string",
+                                        "example": "title text"
+                                    },
                                     "slug": {
                                         "description": "Slug",
                                         "type": "string",
@@ -1837,6 +1842,11 @@
                                         "description": "Image Title",
                                         "type": "string",
                                         "example": "image title text"
+                                    },
+                                    "title": {
+                                        "description": "Title",
+                                        "type": "string",
+                                        "example": "title text"
                                     },
                                     "slug": {
                                         "description": "Slug",

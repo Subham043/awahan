@@ -48,6 +48,12 @@ class CreateController extends Controller
  *                     type="string"
  *                 ),
  *                  @OA\Property(
+ *                     property="title",
+ *                     description="Title",
+ *                     example="title text",
+ *                     type="string"
+ *                 ),
+ *                  @OA\Property(
  *                     property="slug",
  *                     description="Slug",
  *                     example="slug",
